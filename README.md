@@ -1,1 +1,1 @@
-# wd-project
+# wd_project
