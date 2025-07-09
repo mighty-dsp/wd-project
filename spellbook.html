@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demonic Spellbook</title>
+  <link href="https://fonts.googleapis.com/css2?family=Creepster&family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #000000;
+      color: #ffcccc;
+      font-family: 'UnifrakturCook', cursive;
+      text-align: center;
+      background-image: url('https://www.transparenttextures.com/patterns/dark-mosaic.png');
+      background-size: cover;
+      overflow-x: hidden;
+    }
+
+    h1 {
+      font-size: 3rem;
+      color: #ff0000;
+      text-shadow: 0 0 15px red;
+      margin-top: 40px;
+    }
+
+    .spell-list {
+      margin: 40px auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .spell-link {
+      background: #1a0000;
+      color: #ff6666;
+      padding: 15px 30px;
+      text-decoration: none;
+      font-family: 'Creepster', cursive;
+      font-size: 1.5rem;
+      border: 2px solid red;
+      border-radius: 10px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .spell-link:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px red;
+      color: white;
+    }
+
+    .back-link {
+      margin-top: 40px;
+      display: block;
+      color: #ff9999;
+      font-size: 1rem;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>📖 The Demonic Spellbook</h1>
+
+  <div class="spell-list">
+    <a class="spell-link" href="spell-curse.html">🔮 Haunt Channel</a>
+    <a class="spell-link" href="spell-fire.html">🔥 Fire Ritual</a>
+    <a class="spell-link" href="spell-shadow.html">👁️ Shadow Veil</a>
+  </div>
+
+  <a class="back-link" href="index.html">↩ Return to Demons World</a>
+
+  <audio autoplay loop volume="0.3">
+    <source src="https://cdn.pixabay.com/audio/2023/04/10/audio_190d09b6d4.mp3" type="audio/mpeg">
+  </audio>
+</body>
+</html>

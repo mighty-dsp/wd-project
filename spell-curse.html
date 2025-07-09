@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Curse Invocation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Creepster&family=UnifrakturCook:wght@700&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: black;
+      color: crimson;
+      font-family: 'UnifrakturCook', cursive;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    h1 {
+      margin-top: 60px;
+      font-size: 3rem;
+      color: darkred;
+      text-shadow: 0 0 20px red;
+    }
+
+    .curse-circle {
+      width: 300px;
+      height: 300px;
+      margin: 50px auto;
+      border: 2px solid crimson;
+      border-radius: 50%;
+      box-shadow: 0 0 40px crimson;
+      position: relative;
+      animation: curseGlow 4s infinite;
+    }
+
+    @keyframes curseGlow {
+      0%, 100% { box-shadow: 0 0 40px crimson; }
+      50% { box-shadow: 0 0 80px darkred; }
+    }
+
+    .curse-sigil {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100px;
+      height: 100px;
+      margin: -50px 0 0 -50px;
+      background-image: url('https://i.ibb.co/hR1z8mc/demonic-sigil.png');
+      background-size: cover;
+      animation: rotate 10s linear infinite;
+      filter: drop-shadow(0 0 10px crimson);
+    }
+
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .curse-btn {
+      background: crimson;
+      color: black;
+      font-family: 'Creepster', cursive;
+      font-size: 1.5rem;
+      border: none;
+      padding: 15px 30px;
+      cursor: pointer;
+      box-shadow: 0 0 20px red;
+      transition: transform 0.3s ease;
+    }
+
+    .curse-btn:hover {
+      transform: scale(1.1);
+    }
+
+    .curse-effect {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: radial-gradient(circle, rgba(255,0,0,0.1), transparent);
+      pointer-events: none;
+      animation: flashCurse 1.5s forwards;
+      display: none;
+      z-index: 9999;
+    }
+
+    @keyframes flashCurse {
+      0% { background: radial-gradient(circle, rgba(255,0,0,0.6), transparent); }
+      100% { background: radial-gradient(circle, rgba(255,0,0,0), transparent); }
+    }
+  </style>
+</head>
+<body>
+  <h1>☠️ Invoke the Curse ☠️</h1>
+
+  <div class="curse-circle">
+    <div class="curse-sigil"></div>
+  </div>
+
+  <button class="curse-btn" onclick="invokeCurse()">💀 Unleash Curse</button>
+  <div class="curse-effect" id="curseEffect"></div>
+  <a class="back-link" href="spellbook.html" style="display:block; margin-top:30px; color:#ffcccc;">↩ Back to Spellbook</a>
+
+  <audio id="curseAudio" src="https://cdn.pixabay.com/audio/2023/03/22/audio_d1b49e12f4.mp3" preload="auto"></audio>
+  <audio id="bgMusic" src="https://cdn.pixabay.com/audio/2022/11/09/audio_89628dcb2e.mp3" autoplay loop preload="auto"></audio>
+
+  <script>
+    function invokeCurse() {
+      const curse = document.getElementById('curseEffect');
+      curse.style.display = 'block';
+      curse.style.animation = 'flashCurse 1.5s forwards';
+      document.getElementById('curseAudio').play();
+      setTimeout(() => { curse.style.display = 'none'; }, 1500);
+      alert("☠️ The curse has been released. A shadow now walks among you...");
+    }
+  </script>
+</body>
+</html>

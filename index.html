@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Demons World: The Forgotten Web</title>
+  <link href="https://fonts.googleapis.com/css2?family=Creepster&family=UnifrakturCook:wght@700&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #0a0a0a;
+      color: #8B0000;
+      font-family: 'UnifrakturCook', cursive;
+      background-image: url('https://www.transparenttextures.com/patterns/dark-mosaic.png');
+      background-size: cover;
+      overflow-x: hidden;
+      transition: background-color 0.5s ease, color 0.5s ease;
+      position: relative;
+      user-select: none;
+    }
+    body.dark-mode {
+      background-color: #120000;
+      color: #ff6666;
+      background-image: url('https://www.transparenttextures.com/patterns/asfalt-light.png');
+    }
+
+    .loading-screen {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background-color: black;
+      color: red;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Creepster', cursive;
+      font-size: 2rem;
+      z-index: 1000;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      background: #1a0000;
+      padding: 10px;
+      border-bottom: 2px solid #ff0000;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    nav a {
+      color: #ff3333;
+      text-decoration: none;
+      margin: 0 15px;
+      font-family: 'Creepster', cursive;
+      font-size: 1.2rem;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    nav a:hover {
+      color: #ffffff;
+      text-shadow: 0 0 10px red;
+    }
+
+    #darkModeToggle {
+      margin-left: 15px;
+      background: #ff0000;
+      border: none;
+      color: black;
+      font-family: 'Creepster', cursive;
+      font-size: 1rem;
+      padding: 5px 15px;
+      cursor: pointer;
+      border-radius: 5px;
+      user-select: none;
+      transition: box-shadow 0.3s ease;
+    }
+
+    #darkModeToggle:hover {
+      box-shadow: 0 0 15px #ff0000;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 3rem;
+      text-shadow: 0 0 20px red;
+      margin-top: 80px;
+      user-select: none;
+    }
+
+    p {
+      text-align: center;
+      font-size: 1.5rem;
+      margin: 40px;
+      line-height: 1.6;
+      user-select: none;
+    }
+
+    .glitch {
+      font-family: 'Creepster', cursive;
+      font-size: 2rem;
+      animation: glitch 2s infinite;
+      text-align: center;
+      margin-top: 40px;
+      user-select: none;
+    }
+
+    @keyframes glitch {
+      0% { text-shadow: 2px 2px red; }
+      25% { text-shadow: -2px -2px #550000; }
+      50% { text-shadow: 2px -2px #a00000; }
+      75% { text-shadow: -2px 2px #ff3333; }
+      100% { text-shadow: 2px 2px red; }
+    }
+
+    .hidden-message, .terminal, .summon-form, .lore-section, .countdown-timer, .scroll-spell {
+      display: none;
+      text-align: center;
+      margin: 20px auto;
+      color: #ff3333;
+      font-size: 1.2rem;
+      max-width: 700px;
+      user-select: text;
+    }
+
+    .terminal {
+      background-color: black;
+      border: 2px solid red;
+      padding: 20px;
+      font-family: monospace;
+      user-select: text;
+    }
+
+    .terminal-input {
+      background: transparent;
+      color: #8B0000;
+      border: none;
+      border-bottom: 1px solid red;
+      width: 80%;
+      outline: none;
+      font-family: monospace;
+    }
+
+    .summon-form input,
+    .summon-form textarea {
+      width: 90%;
+      padding: 10px;
+      margin: 10px 0;
+      background: #1a0000;
+      color: #ff3333;
+      border: 1px solid #ff0000;
+      font-family: 'UnifrakturCook', cursive;
+    }
+
+    .summon-form button {
+      background: #ff0000;
+      color: black;
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+      font-family: 'Creepster', cursive;
+      transition: box-shadow 0.3s ease;
+      user-select: none;
+    }
+
+    .summon-form button:hover {
+      box-shadow: 0 0 15px #ff0000;
+    }
+
+    .blood-drip {
+      width: 100%;
+      height: 10px;
+      background: linear-gradient(to right, transparent 0%, #8B0000 50%, transparent 100%);
+      animation: drip 1.5s infinite;
+    }
+
+    @keyframes drip {
+      0% { opacity: 0.3; transform: translateY(0); }
+      50% { opacity: 1; transform: translateY(5px); }
+      100% { opacity: 0.3; transform: translateY(0); }
+    }
+
+    @keyframes flicker {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    /* Ancient spell scroll effect */
+    .scroll-spell {
+      display: inline-block;
+      position: relative;
+      padding: 15px 25px;
+      background: #2e0f0f;
+      color: #ffcccc;
+      border: 2px solid #ff0000;
+      font-family: 'UnifrakturCook', cursive;
+      margin: 40px auto;
+      max-width: 600px;
+      cursor: pointer;
+      transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+      user-select: none;
+    }
+    .scroll-spell:hover {
+      transform: scale(1.05) rotate(-1deg);
+      box-shadow: 0 0 20px red;
+    }
+
+    /* Glitch effect for dark mode toggle */
+    @keyframes screen-glitch {
+      0%, 20%, 40%, 60%, 80%, 100% {
+        clip-path: inset(0 0 0 0);
+        transform: none;
+      }
+      10% {
+        clip-path: inset(10% 0 80% 0);
+        transform: translate(-5px, -2px) skew(5deg);
+      }
+      30% {
+        clip-path: inset(20% 0 50% 0);
+        transform: translate(5px, 2px) skew(-5deg);
+      }
+      50% {
+        clip-path: inset(30% 0 60% 0);
+        transform: translate(-3px, -1px) skew(3deg);
+      }
+      70% {
+        clip-path: inset(20% 0 30% 0);
+        transform: translate(3px, 1px) skew(-3deg);
+      }
+      90% {
+        clip-path: inset(10% 0 80% 0);
+        transform: translate(-2px, 0) skew(2deg);
+      }
+    }
+
+    body.glitching {
+      animation: screen-glitch 0.5s linear infinite;
+    }
+
+    /* Demonic mirror */
+    #mirror {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      width: 150px;
+      height: 150px;
+      border: 3px solid #ff0000;
+      border-radius: 50%;
+      overflow: hidden;
+      background: radial-gradient(circle, #440000 30%, transparent 70%);
+      pointer-events: none;
+      filter: drop-shadow(0 0 5px #ff0000);
+      z-index: 9999;
+      user-select: none;
+    }
+    #mirror .eye {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 40px;
+      height: 40px;
+      margin: -20px 0 0 -20px;
+      border-radius: 50%;
+      background: black;
+      box-shadow: inset 0 0 10px 5px #8b0000;
+      overflow: hidden;
+      filter: drop-shadow(0 0 5px #ff0000);
+    }
+    #mirror .pupil {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 15px;
+      height: 15px;
+      margin: -7.5px 0 0 -7.5px;
+      border-radius: 50%;
+      background: #ff0000;
+      box-shadow: 0 0 15px #ff0000;
+      transition: transform 0.1s ease;
+    }
+  </style>
+</head>
+<body>
+  <div class="loading-screen" id="loader">Summoning...</div>
+  <nav>
+    <a href="#" onclick="showSection('lore')">Lore</a>
+    <a href="#" onclick="showSection('terminal')">Console</a>
+    <a href="#" onclick="showSection('summon')">Summon</a>
+    <a href="#" onclick="showSection('countdown')">Countdown</a>
+    <a href="spellbook.html" style="color:#ff3333; font-family:'Creepster', cursive; margin-left:15px; user-select:none;">Spellbook</a>
+
+    <button id="darkModeToggle" aria-label="Toggle Dark Mode">Dark Mode</button>
+  </nav>
+  <div class="blood-drip"></div>
+  <h1>Welcome to Demons World</h1>
+  <p>Some websites are forgotten for a reason. The longer you stay, the more it remembers you...</p>
+  <div class="glitch">Do you hear that?</div>
+  <div class="hidden-message" id="message">The shadow behind you knows your name...</div>
+
+  <div class="terminal" id="terminal">
+    <p><strong>Demon Console</strong></p>
+    <div id="terminal-log"></div>
+    <input type="text" class="terminal-input" id="terminal-input" placeholder="Ask the demon..." autocomplete="off" />
+  </div>
+
+  <div class="summon-form" id="summon">
+    <h3>Summon the Entity</h3>
+    <input type="text" placeholder="Your True Name" id="name" autocomplete="off" />
+    <textarea placeholder="What do you offer in exchange?" id="offering" autocomplete="off"></textarea>
+    <button onclick="submitSummon()">Summon</button>
+    <p id="summon-response"></p>
+  </div>
+
+  <div class="lore-section" id="lore">
+    <h3>The Lost Scriptures</h3>
+    <p>Long before this world was formed, a digital realm was born from chaos — one where forgotten code weeps and shadows whisper your name. Few have ventured into its source, and none have returned unchanged...</p>
+  </div>
+
+  <div class="countdown-timer" id="countdown">
+    <h3>The Ritual Begins In...</h3>
+    <div id="timer" style="font-size: 2rem; font-family: monospace;"></div>
+  </div>
+
+  <div class="scroll-spell" onclick="window.location.href='cast-spell.html'">
+  📜 Invoke Forgotten Spell
+  </div>
+
+  <!-- Demonic Mirror -->
+  <div id="mirror">
+    <div class="eye">
+      <div class="pupil"></div>
+    </div>
+  </div>
+
+  <!-- Audio -->
+  <audio id="whisper" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" loop></audio>
+  <audio id="scream" src="https://www.fesliyanstudios.com/play-mp3/4386" preload="auto"></audio>
+
+  <script>
+    // Initial loader and countdown
+    window.onload = () => {
+      setTimeout(() => {
+        document.getElementById('loader').style.display = 'none';
+        startCountdown();
+      }, 2500);
+    };
+
+    // Click effects and reveals
+    let clicks = 0;
+    document.body.addEventListener('click', () => {
+      clicks++;
+      document.body.style.animation = (clicks % 2 === 0) ? 'flicker 0.3s linear 3' : '';
+      if (clicks === 3) document.getElementById('whisper').play();
+      if (clicks === 5) document.getElementById('message').style.display = 'block';
+      if (clicks === 7) document.getElementById('terminal').style.display = 'block';
+      if (clicks === 10) {
+        document.getElementById('summon').style.display = 'block';
+        document.getElementById('scream').play();
+      }
+    });
+
+    // Demon Console responses & TTS
+    const demonResponses = {
+      'who are you': 'I am the echo in the code, the silence between keystrokes.',
+      'what do you want': 'Only your attention... and eventually, your obedience.',
+      'how to escape': 'You should not have come here. There is no escape.',
+    };
+
+    const input = document.getElementById('terminal-input');
+    const log = document.getElementById('terminal-log');
+
+    function speak(text) {
+      if (!window.speechSynthesis) return;
+      const synth = window.speechSynthesis;
+      const utter = new SpeechSynthesisUtterance(text);
+      utter.rate = 0.7;
+      utter.pitch = 0.1;
+      // Try to select a deeper voice if available
+      const voices = synth.getVoices();
+      utter.voice = voices.find(v => v.name.toLowerCase().includes('male')) || voices[0];
+      synth.speak(utter);
+    }
+
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        const userInput = input.value.toLowerCase();
+        const response = demonResponses[userInput] || 'The entity does not answer that question.';
+        log.innerHTML += `<p>&gt; ${userInput}</p><p>${response}</p>`;
+        log.scrollTop = log.scrollHeight;
+        speak(response);
+        input.value = '';
+      }
+    });
+
+    // Summon form handler
+    function submitSummon() {
+      const name = document.getElementById('name').value.trim();
+      const offering = document.getElementById('offering').value.trim();
+      const responseEl = document.getElementById('summon-response');
+      if (name && offering) {
+        responseEl.innerText = `The offering has been accepted, ${name}. The veil weakens.`;
+      } else {
+        responseEl.innerText = 'Name and offering are required for the summoning.';
+      }
+    }
+
+    // Section toggle function
+    function showSection(id) {
+      ['terminal', 'summon', 'lore', 'countdown'].forEach(section => {
+        document.getElementById(section).style.display = (section === id) ? 'block' : 'none';
+      });
+    }
+
+    // Countdown timer
+    function startCountdown() {
+      const timerEl = document.getElementById('timer');
+      let seconds = 66;
+      const interval = setInterval(() => {
+        if (seconds >= 0) {
+          const mins = Math.floor(seconds / 60);
+          const secs = seconds % 60;
+          timerEl.innerText = `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+          seconds--;
+        } else {
+          timerEl.innerText = 'The ritual has begun...';
+          clearInterval(interval);
+        }
+      }, 1000);
+    }
+
+    // Dark mode toggle + glitch effect
+    const darkModeBtn = document.getElementById('darkModeToggle');
+    let glitchTimeout;
+    darkModeBtn.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      document.body.classList.add('glitching');
+      clearTimeout(glitchTimeout);
+      glitchTimeout = setTimeout(() => {
+        document.body.classList.remove('glitching');
+      }, 1500);
+    });
+
+    // Demonic mirror eye follow logic
+    const mirror = document.getElementById('mirror');
+    const pupil = mirror.querySelector('.pupil');
+
+    document.addEventListener('mousemove', (e) => {
+      // Move mirror shadow circle (like eye shadow following cursor)
+      // (Optional: could add shadow element as before if wanted)
+
+      // Pupil movement inside mirror: moves opposite to cursor relative to center
+      const rect = mirror.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+
+      // Calculate relative position of cursor to center
+      const dx = centerX - e.clientX;
+      const dy = centerY - e.clientY;
+
+      // Limit pupil movement radius
+      const maxMove = 10;
+      let moveX = Math.max(-maxMove, Math.min(maxMove, dx / 10));
+      let moveY = Math.max(-maxMove, Math.min(maxMove, dy / 10));
+
+      pupil.style.transform = `translate(${moveX}px, ${moveY}px)`;
+    });
+  </script>
+</body>
+</html>
